@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:title" content="Muhammad Umair Haroon">
+<meta property="og:description" content="Freelance EPLAN Electric P8 engineer: LV switchgear, synchronizing, ATS and MCC panel documentation.">
+<title>Muhammad Umair Haroon</title>
+<meta name="description" content="Freelance EPLAN Electric P8 engineer: LV switchgear, synchronizing, ATS and MCC panel documentation.">
+<style>
+html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+
+@font-face{font-family:"Barlow Condensed";font-weight:500;font-display:swap;src:url(fonts/bc-500.woff2) format("woff2")}
+@font-face{font-family:"Barlow Condensed";font-weight:600;font-display:swap;src:url(fonts/bc-600.woff2) format("woff2")}
+@font-face{font-family:"Barlow Condensed";font-weight:700;font-display:swap;src:url(fonts/bc-700.woff2) format("woff2")}
+@font-face{font-family:"Barlow";font-weight:400;font-display:swap;src:url(fonts/b-400.woff2) format("woff2")}
+@font-face{font-family:"Barlow";font-weight:400;font-style:italic;font-display:swap;src:url(fonts/b-400i.woff2) format("woff2")}
+@font-face{font-family:"Barlow";font-weight:500;font-display:swap;src:url(fonts/b-500.woff2) format("woff2")}
+@font-face{font-family:"Barlow";font-weight:600;font-display:swap;src:url(fonts/b-600.woff2) format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-weight:400;font-display:swap;src:url(fonts/jm-400.woff2) format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-weight:500;font-display:swap;src:url(fonts/jm-500.woff2) format("woff2")}
+
+/* Layout: the page is one drawing sheet. Zone ruler 0–9 across the top, sections carry
+   EPLAN-style page references, and the footer is the title block. */
+:root{
+  --paper:#eef0ee; --sheet:#fbfcfb; --ink:#141a20; --muted:#58626d; --rule:#c8cfd5; --rule-strong:#141a20;
+  --red:#a3201b; --red-soft:#a3201b14; --frame:#ffffff;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Barlow",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0d1114; --sheet:#141a1f; --ink:#e6eaed; --muted:#98a3ad; --rule:#2a333b; --rule-strong:#c9d1d8;
+  --red:#ff6b5f; --red-soft:#ff6b5f1c; --frame:#1b2229; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0d1114; --sheet:#141a1f; --ink:#e6eaed; --muted:#98a3ad; --rule:#2a333b; --rule-strong:#c9d1d8;
+  --red:#ff6b5f; --red-soft:#ff6b5f1c; --frame:#1b2229; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{background:var(--paper);color:var(--ink);font:400 17px/1.55 var(--body);padding-inline:16px;padding-block:24px 40px}
+.sheet{max-width:1180px;margin:0 auto;background:var(--sheet);border:1.5px solid var(--rule-strong);position:relative}
+.ruler{display:grid;grid-template-columns:repeat(10,1fr);border-bottom:1px solid var(--rule-strong);font:400 11px/1 var(--mono);color:var(--muted)}
+.ruler span{padding:5px 0;text-align:center;border-left:1px solid var(--rule)}
+.ruler span:first-child{border-left:0}
+.inner{padding-inline:clamp(18px,4vw,56px);padding-block:clamp(24px,4vw,48px) 0}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+.ref{font:400 12px/1 var(--mono);color:var(--red);letter-spacing:.02em}
+.eyebrow{font:500 13px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+
+/* Top bar */
+.top{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between;align-items:center;padding-bottom:18px;border-bottom:1px solid var(--rule)}
+.top nav{display:flex;flex-wrap:wrap;gap:4px 18px;font:500 14px/1.4 var(--body)}
+.top nav a{text-decoration:none;color:var(--muted)}
+.top nav a:hover{color:var(--red)}
+.status{display:inline-flex;align-items:center;gap:8px;font:500 12px/1 var(--mono);text-transform:uppercase;letter-spacing:.06em}
+.status i{width:8px;height:8px;border-radius:50%;background:#2f9e5b;box-shadow:0 0 0 3px #2f9e5b33}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);padding-block:clamp(28px,5vw,56px) 32px;align-items:start}
+.hero h1{font-weight:700;font-size:clamp(46px,7.4vw,92px);line-height:.9;text-transform:uppercase;letter-spacing:-.005em;margin-top:14px}
+.hero h1 span{display:block;color:var(--red)}
+.hero .role{font:600 clamp(20px,2.4vw,26px)/1.2 var(--display);margin-top:16px;letter-spacing:.01em}
+.hero p{max-width:60ch;color:var(--ink);margin:18px 0 0}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:10px;font:600 15px/1 var(--body);padding:13px 18px;border:1.5px solid var(--rule-strong);text-decoration:none;color:var(--ink);background:transparent;cursor:pointer}
+.btn.primary{background:var(--red);border-color:var(--red);color:#fff}
+.btn:hover{transform:translateY(-1px)}
+.btn .k{font:400 12px/1 var(--mono);opacity:.75}
+
+/* Plant characteristics table */
+.pc{border:1.5px solid var(--rule-strong);background:var(--sheet)}
+.pc h2{font:700 15px/1 var(--display);letter-spacing:.14em;text-transform:uppercase;padding:12px 14px;border-bottom:1.5px solid var(--rule-strong);text-align:center}
+.pc dl{margin:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr)}
+.pc dt,.pc dd{margin:0;padding:9px 14px;border-bottom:1px solid var(--rule)}
+.pc dt{font:400 12px/1.5 var(--mono);text-transform:uppercase;letter-spacing:.03em;color:var(--muted);border-right:1px solid var(--rule)}
+.pc dd{font-weight:600;font-variant-numeric:tabular-nums}
+.pc dt:nth-last-of-type(1),.pc dd:nth-last-of-type(1){border-bottom:0}
+.pc .grp{grid-column:1/-1;font:600 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:8px 14px;background:var(--red-soft);color:var(--red);border-bottom:1px solid var(--rule)}
+
+/* Hero sheet */
+.feature{margin:8px 0 0;border-top:1px solid var(--rule);padding-top:28px}
+.frame{background:var(--frame);border:1px solid var(--rule);padding:clamp(6px,1vw,12px);display:block;width:100%;cursor:zoom-in}
+.frame img{display:block;width:100%;height:auto;background:#fff}
+figcaption{display:flex;flex-wrap:wrap;gap:4px 14px;justify-content:space-between;font:400 13px/1.45 var(--mono);color:var(--muted);margin-top:10px}
+
+/* Sections */
+section{padding-block:56px 8px;border-top:1px solid var(--rule);margin-top:48px}
+.sh{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:16px 48px;align-items:end;margin-bottom:32px}
+.sh h2{font-weight:700;font-size:clamp(34px,4.4vw,52px);line-height:.95;text-transform:uppercase;margin-top:10px}
+.sh p{margin:0;color:var(--muted);max-width:62ch}
+
+/* Deliverables */
+.deliv{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));border-top:1.5px solid var(--rule-strong);border-left:1px solid var(--rule)}
+.deliv div{padding:18px 20px 22px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);min-width:0}
+.deliv .tag{font:500 13px/1 var(--mono);color:var(--red)}
+.deliv h3{font-size:22px;font-weight:600;margin:10px 0 6px;letter-spacing:.01em}
+.deliv p{margin:0;font-size:15.5px;color:var(--muted)}
+.deliv a{color:var(--ink);text-decoration-color:var(--red);text-underline-offset:3px;font-weight:500}
+
+/* Projects */
+.project{padding-block:36px 8px;border-top:1.5px solid var(--rule-strong)}
+.project+.project{margin-top:40px}
+.ph{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px 48px}
+.ph h3{font-size:clamp(28px,3.4vw,40px);font-weight:700;line-height:1;text-transform:uppercase}
+.ph .sub{font:600 19px/1.3 var(--display);color:var(--red);margin-top:8px;letter-spacing:.02em}
+.ph p{margin:14px 0 0;max-width:62ch}
+.specs{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);border-top:1px solid var(--rule);font-size:15px;align-self:start}
+.specs dt,.specs dd{margin:0;padding:7px 0;border-bottom:1px solid var(--rule)}
+.specs dt{font:400 12px/1.9 var(--mono);text-transform:uppercase;color:var(--muted);padding-right:16px;white-space:nowrap}
+.specs dd{font-weight:500;font-variant-numeric:tabular-nums}
+.did{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:6px;max-width:70ch}
+.did li{padding-left:22px;position:relative;font-size:16px}
+.did li::before{content:"";position:absolute;left:2px;top:.62em;width:10px;height:1.5px;background:var(--red)}
+.gallery{display:grid;grid-template-columns:repeat(var(--cols,3),minmax(0,1fr));gap:20px;margin-top:28px}
+#ats .gallery{--cols:4}
+.gallery figure{margin:0;min-width:0}
+.gallery button{all:unset;box-sizing:border-box;display:block;width:100%;background:var(--frame);border:1px solid var(--rule);padding:6px;cursor:zoom-in;transition:border-color .15s, transform .15s}
+.gallery button:hover{border-color:var(--red);transform:translateY(-2px)}
+.gallery button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.gallery img{display:block;width:100%;aspect-ratio:1.414;object-fit:cover;object-position:top left;background:#fff}
+.gallery figcaption{display:block;font-size:12.5px;margin-top:8px}
+.gallery figcaption b{display:block;font:600 15px/1.3 var(--body);color:var(--ink);margin-bottom:2px}
+
+/* Experience */
+.exp{display:grid;gap:0;border-top:1.5px solid var(--rule-strong)}
+.job{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:8px 40px;padding:24px 0;border-bottom:1px solid var(--rule)}
+.job .when{font:500 14px/1.5 var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.job h3{font-size:26px;font-weight:600;line-height:1.1}
+.job .org{color:var(--red);font:600 17px/1.3 var(--display);margin-top:4px;letter-spacing:.02em}
+.job ul{margin:12px 0 0;padding-left:18px}
+.job li{margin:4px 0}
+.job li::marker{color:var(--red)}
+
+/* Tools */
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;margin-top:8px}
+.tools h3{font:500 13px/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{font:500 15px/1 var(--body);padding:8px 12px;border:1px solid var(--rule)}
+.chips span.hl{border-color:var(--red);color:var(--red);font-weight:600}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:32px 48px;align-items:start}
+.contact h2{font-size:clamp(36px,5vw,60px);font-weight:700;line-height:.95;text-transform:uppercase}
+.contact p{color:var(--muted);max-width:56ch}
+.lines{border-top:1.5px solid var(--rule-strong)}
+.line{display:grid;grid-template-columns:110px minmax(0,1fr) auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--rule)}
+.line .k{font:400 12px/1 var(--mono);text-transform:uppercase;color:var(--muted)}
+.line .v{font-weight:600;overflow-wrap:anywhere;user-select:all}
+.line a.v{text-decoration-color:var(--red);text-underline-offset:3px;user-select:auto}
+.copy{font:500 12px/1 var(--mono);padding:8px 10px;border:1px solid var(--rule-strong);background:transparent;color:var(--ink);cursor:pointer}
+
+/* Title block footer */
+.tb{margin-top:64px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1.5px solid var(--rule-strong)}
+.tb div{padding:8px 12px;border-right:1px solid var(--rule);min-width:0}
+.tb div:last-child{border-right:0}
+.tb small{display:block;font:400 10.5px/1.4 var(--mono);text-transform:uppercase;color:var(--muted)}
+.tb span{font:600 14px/1.4 var(--body);overflow-wrap:anywhere}
+
+/* Lightbox */
+dialog{padding:0;border:0;max-width:100vw;max-height:100vh;width:100vw;height:100vh;background:#0b0e11f2;color:#e8ecef}
+dialog::backdrop{background:#0b0e11d9}
+.lb{display:grid;grid-template-rows:auto minmax(0,1fr);height:100%}
+.lb-bar{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;padding:12px 16px;padding-top:calc(12px + env(safe-area-inset-top,0px));border-bottom:1px solid #2a333b}
+.lb-cap{font:400 13px/1.4 var(--mono);min-width:0;flex:1 1 280px}
+.lb-cap b{font:600 15px/1.3 var(--body);display:block}
+.lb-btns{display:flex;gap:8px}
+.lb-btns button{font:500 13px/1 var(--mono);padding:9px 12px;background:#1b2229;color:#e8ecef;border:1px solid #3a444e;cursor:pointer}
+.lb-btns button:hover{border-color:#ff6b5f}
+.lb-view{overflow:auto;display:grid;place-items:center;padding:16px}
+.lb-view img{max-width:100%;max-height:calc(100vh - 120px);max-height:calc(100dvh - 120px);background:#fff;cursor:zoom-in;display:block}
+.lb-view.zoom{place-items:start}
+.lb-view.zoom img{max-width:none;max-height:none;width:2480px;cursor:zoom-out}
+
+@media (max-width:860px){
+  .hero,.ph,.sh,.contact{grid-template-columns:minmax(0,1fr)}
+  .job{grid-template-columns:minmax(0,1fr)}
+  .tb{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .tb div:nth-child(3){border-right:0}
+  .tb div:nth-child(-n+3){border-bottom:1px solid var(--rule)}
+  .ruler{grid-template-columns:repeat(5,1fr)}
+  .gallery,#ats .gallery{--cols:2;gap:14px}
+  .ruler span:nth-child(n+6){display:none}
+}
+@media (max-width:520px){
+  body{font-size:16px}
+  .line{grid-template-columns:minmax(0,1fr) auto}
+  .line .k{grid-column:1/-1}
+  .top nav{display:none}
+}
+</style>
+
+</head>
+<body>
+<div class="sheet">
+  <div class="ruler" aria-hidden="true"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
+  <div class="inner">
+
+    <header class="top">
+      <span class="status"><i></i>Available for freelance · remote</span>
+      <nav aria-label="Sections">
+        <a href="#deliver">Deliverables</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <div class="hero">
+      <div>
+        <div class="ref">=PORTFOLIO +INTRO /1</div>
+        <h1>Muhammad Umair <span>Haroon</span></h1>
+        <div class="role">EPLAN Electric P8 Engineer · LV Switchgear &amp; Control Panels</div>
+        <p>I'm an electrical design engineer with over four years of experience, most of it spent turning panel requirements into complete EPLAN Electric P8 drawing packages. That means plant characteristics, general arrangements, power and control schematics, PLC and controller I/O, terminal diagrams and a BOM you can order from, all issued against the client's title block and revised through to as-built.</p>
+        <p>My work covers LV synchronizing panels, ATS panels, MCCs and distribution boards for airports, hotels and industrial plants in Saudi Arabia. I currently work remotely for a UK engineering firm on protection and control schematics, so I'm used to delivering to a schedule across time zones without much hand-holding.</p>
+        <div class="cta">
+          <a class="btn primary" href="#projects">See drawing samples</a>
+          <a class="btn" href="cv.pdf" target="_blank" rel="noopener">Open CV <span class="k">PDF</span></a>
+        </div>
+      </div>
+
+      <aside class="pc" aria-label="Key facts">
+        <h2>Plant characteristics</h2>
+        <dl>
+          <div class="grp">Engineer</div>
+          <dt>Experience</dt><dd>4+ years</dd>
+          <dt>Core tool</dt><dd>EPLAN Electric P8</dd>
+          <dt>Also</dt><dd>AutoCAD · DIGSI · PCM600</dd>
+          <div class="grp">Work delivered</div>
+          <dt>Panel types</dt><dd>Synch · ATS · MCC/EMCC · MDB · SMDB · DB</dd>
+          <dt>Rating up to</dt><dd>5550 A · 100 kA (1 s)</dd>
+          <dt>Largest set</dt><dd>90 sheets</dd>
+          <dt>Standards</dt><dd>IEC 61439 · IEC 60364 · NEK 400</dd>
+          <div class="grp">Engagement</div>
+          <dt>Based in</dt><dd>Karachi · UTC+5</dd>
+          <dt>Mode</dt><dd>Freelance, project-based, remote</dd>
+        </dl>
+      </aside>
+    </div>
+
+    <figure class="feature" style="margin-inline:0">
+      <button class="frame" data-src="img/addoha-busbar-layout.webp" data-title="Front and busbar layout" data-meta="Addoha Poultry · LV synchronizing panel · sheet 7 of 50" aria-label="Enlarge: front and busbar layout">
+        <img src="img/addoha-busbar-layout.webp" alt="EPLAN general arrangement of a five-section 4100 mm LV synchronizing panel showing ACBs and red copper busbars" width="2480" height="1753">
+      </button>
+      <figcaption><span>Front and busbar layout, 5550 A LV synchronizing panel (4100 × 2130 mm)</span><span>Sheet 7/50 · As-built R11</span></figcaption>
+    </figure>
+
+    <section id="deliver" aria-labelledby="deliver-h">
+      <div class="sh">
+        <div><div class="ref">=PORTFOLIO +SCOPE /2</div><h2 id="deliver-h">What I deliver</h2></div>
+        <p>Every item below comes straight from the drawing sets on this page. The links jump to a sheet that shows it.</p>
+      </div>
+      <div class="deliv">
+        <div><span class="tag">-S1</span><h3>Schematics</h3><p>Multi-page power and control schematics with device tags, cross-references and wire numbers that hold up on the shop floor. <a href="#jizan">Gen-1 sync inputs</a></p></div>
+        <div><span class="tag">-A1</span><h3>PLC &amp; I/O</h3><p>Digital and analog I/O for DEIF AGC 150 controllers and ALC-4 load-shed PLCs, plus HMI, Modbus RTU and Ethernet. <a href="#jizan">Load-shed I/O</a></p></div>
+        <div><span class="tag">-K1</span><h3>Relay &amp; MCC</h3><p>Interface relays, DOL, star-delta, VFD and dual-speed starters, earth-leakage relays and BMS signals. <a href="#shura">Dual-speed MCC</a></p></div>
+        <div><span class="tag">-Q1</span><h3>Breaker control</h3><p>ACB and MCCB closing coils, shunt trips, undervoltage releases, motor operators and interlocks. <a href="#addoha">Generator ACB</a></p></div>
+        <div><span class="tag">-X1</span><h3>Terminal diagrams</h3><p>Terminal line-ups with internal and external connections, generated from the schematic so they stay in sync. <a href="#addoha">Terminal sheet</a></p></div>
+        <div><span class="tag">+GA</span><h3>Panel layout</h3><p>Front, bottom, component and busbar layouts drawn to scale in EPLAN and AutoCAD. <a href="#jizan">Component view</a></p></div>
+        <div><span class="tag">BOM</span><h3>Bill of materials</h3><p>Parts lists with manufacturer order codes for ABB, Eaton, Phoenix Contact, DEIF and Lovato. <a href="#ats">ATS material list</a></p></div>
+        <div><span class="tag">REV</span><h3>Revision control</h3><p>For-approval, IFC and as-built issues with a clear revision table, including 11 revisions on one panel. <a href="#addoha">Addoha R11</a></p></div>
+      </div>
+    </section>
+
+    <section id="projects" aria-labelledby="projects-h">
+      <div class="sh">
+        <div><div class="ref">=PORTFOLIO +PROJECTS /3</div><h2 id="projects-h">Drawing samples</h2></div>
+        <p>Four panel packages I designed in EPLAN Electric P8, shown as issued. Click any sheet to open it full size, then click again to zoom to 100%. More sheets are available on request.</p>
+      </div>
+
+      <article class="project" id="jizan">
+        <div class="ph">
+          <div>
+            <h3>Jizan Airport DMCP</h3>
+            <div class="sub">Synchronization control system · Saudi Arabia</div>
+            <p>A control panel that synchronizes seven 13.8 kV generators and a bus tie across two busbars, sheds and restores load through the airport's MV switchgear, and reports everything to a central HMI. I built the full 90-sheet package and took it through five for-approval revisions.</p>
+            <ul class="did">
+              <li>Synchronizing and load-sharing circuits for 8 DEIF AGC 150 controllers, with CT, line-PT and bus-PT inputs</li>
+              <li>Load-shed logic I/O for two DEIF ALC-4 PLCs, wired to MV breaker status and command signals</li>
+              <li>Ethernet network to a 15" AGI 415 HMI and PC, plus Modbus RTU (RS-485) links</li>
+              <li>66 interface relays, 70 fuse disconnectors and 688 terminals, all tagged and listed in the BOM</li>
+            </ul>
+          </div>
+          <dl class="specs">
+            <dt>Panel</dt><dd>Synchronization control system</dd>
+            <dt>Supply</dt><dd>230 V AC / 24 V DC, 60 Hz</dd>
+            <dt>Enclosure</dt><dd>Floor standing, IP54, 4200 mm</dd>
+            <dt>Controllers</dt><dd>8 × AGC 150, 2 × ALC-4, AGI 415</dd>
+            <dt>Set</dt><dd>90 sheets · Rev 05 · Aug 2024</dd>
+          </dl>
+        </div>
+        <div class="gallery">
+          <figure><button data-src="img/jizan-gen-sync.webp" data-title="Gen-1 synchronizing inputs" data-meta="Jizan Airport · sheet 8 of 90"><img loading="lazy" src="img/jizan-gen-sync-t.webp" alt="Schematic of generator CT and PT inputs to a DEIF AGC 150 controller"></button><figcaption><b>Gen-1 synchronizing inputs</b>Sheet 8/90 · CT, line PT and bus PT to AGC 150</figcaption></figure>
+          <figure><button data-src="img/jizan-load-shed-io.webp" data-title="ALC-4 load-shed PLC I/O" data-meta="Jizan Airport · sheet 49 of 90"><img loading="lazy" src="img/jizan-load-shed-io-t.webp" alt="Schematic of ALC-4 load-shed module inputs, outputs and Modbus terminals"></button><figcaption><b>ALC-4 load-shed PLC I/O</b>Sheet 49/90 · MV breaker signals, relays, Modbus RTU</figcaption></figure>
+          <figure><button data-src="img/jizan-network.webp" data-title="Control network" data-meta="Jizan Airport · sheet 55 of 90"><img loading="lazy" src="img/jizan-network-t.webp" alt="Ethernet network diagram linking generator controllers, HMI and PC"></button><figcaption><b>Control network</b>Sheet 55/90 · Ethernet switch, HMI, controllers, PC link</figcaption></figure>
+          <figure><button data-src="img/jizan-ga-front.webp" data-title="General arrangement" data-meta="Jizan Airport · sheet 6 of 90"><img loading="lazy" src="img/jizan-ga-front-t.webp" alt="Front and side view of the synchronization panel line-up"></button><figcaption><b>General arrangement</b>Sheet 6/90 · Front and side view</figcaption></figure>
+          <figure><button data-src="img/jizan-component-view.webp" data-title="Component view" data-meta="Jizan Airport · sheet 7 of 90"><img loading="lazy" src="img/jizan-component-view-t.webp" alt="Internal component layout with controllers and terminal blocks"></button><figcaption><b>Component view</b>Sheet 7/90 · Mounting plate layout</figcaption></figure>
+          <figure><button data-src="img/jizan-bom.webp" data-title="Bill of material" data-meta="Jizan Airport · sheet 90 of 90"><img loading="lazy" src="img/jizan-bom-t.webp" alt="Bill of material table with order numbers and manufacturers"></button><figcaption><b>Bill of material</b>Sheet 90/90 · Order codes by manufacturer</figcaption></figure>
+        </div>
+      </article>
+
+      <article class="project" id="addoha">
+        <div class="ph">
+          <div>
+            <h3>Addoha Poultry</h3>
+            <div class="sub">LV synchronizing panel · Middle East</div>
+            <p>A 5550 A main switchboard that parallels three generators with the utility supply through a bus coupler. I designed the power and control schematics and the GA, and carried the set through 11 revisions to as-built, including a mid-project switch of ATS controller from Lovato ATL601 to DEIF AGC 150.</p>
+            <ul class="did">
+              <li>Generator and utility incomers on Eaton IZMX40 2500 A withdrawable ACBs with motor operator, shunt trip and UVR</li>
+              <li>4 DEIF AGC 150 controllers handling synchronizing, load sharing, breaker commands and genset start/stop</li>
+              <li>Mechanical and electrical interlocking between incomers and bus coupler</li>
+              <li>Five-section line-up drawn to scale, with busbars sized for 100 kA (1 s)</li>
+            </ul>
+          </div>
+          <dl class="specs">
+            <dt>Rating</dt><dd>5550 A, 400/230 V, 60 Hz, TN-S</dd>
+            <dt>Busbar</dt><dd>6 × 80 × 10 mm, 100 kA (1 s)</dd>
+            <dt>Form</dt><dd>Form 2B, IP31</dd>
+            <dt>Size</dt><dd>4100 × 2130 mm</dd>
+            <dt>Set</dt><dd>50 sheets · As-built R11 · Jul 2024</dd>
+          </dl>
+        </div>
+        <div class="gallery">
+          <figure><button data-src="img/addoha-gen-acb.webp" data-title="Generator incomer" data-meta="Addoha Poultry · sheet 9 of 50"><img loading="lazy" src="img/addoha-gen-acb-t.webp" alt="Schematic of generator ACB, current transformers and AGC 150 measurement"></button><figcaption><b>Generator incomer</b>Sheet 9/50 · ACB, CTs, metering to AGC 150</figcaption></figure>
+          <figure><button data-src="img/addoha-agc-outputs.webp" data-title="Controller outputs" data-meta="Addoha Poultry · sheet 30 of 50"><img loading="lazy" src="img/addoha-agc-outputs-t.webp" alt="AGC 150 digital outputs driving interface relays for breaker and genset commands"></button><figcaption><b>Controller outputs</b>Sheet 30/50 · CB open/close, gen start/stop relays</figcaption></figure>
+          <figure><button data-src="img/addoha-buscoupler.webp" data-title="Utility incomer and bus coupler" data-meta="Addoha Poultry · sheet 27 of 50"><img loading="lazy" src="img/addoha-buscoupler-t.webp" alt="Power schematic of the utility incomer and bus coupler breakers with mechanical interlock"></button><figcaption><b>Utility incomer and bus coupler</b>Sheet 27/50 · Mechanical interlock, voltage sensing</figcaption></figure>
+          <figure><button data-src="img/addoha-front-layout.webp" data-title="Front and bottom layout" data-meta="Addoha Poultry · sheet 5 of 50"><img loading="lazy" src="img/addoha-front-layout-t.webp" alt="Front and bottom layout of the switchboard"></button><figcaption><b>Front and bottom layout</b>Sheet 5/50 · Door and gland plate arrangement</figcaption></figure>
+          <figure><button data-src="img/addoha-terminals.webp" data-title="Terminal line-up" data-meta="Addoha Poultry · sheet 35 of 50"><img loading="lazy" src="img/addoha-terminals-t.webp" alt="Terminal diagram with internal and external connections"></button><figcaption><b>Terminal line-up</b>Sheet 35/50 · Internal and external targets</figcaption></figure>
+          <figure><button data-src="img/addoha-bom.webp" data-title="Bill of material" data-meta="Addoha Poultry · BOM"><img loading="lazy" src="img/addoha-bom-t.webp" alt="Bill of material listing Eaton, ABB and DEIF parts"></button><figcaption><b>Bill of material</b>Eaton, ABB and DEIF order codes</figcaption></figure>
+        </div>
+      </article>
+
+      <article class="project" id="shura">
+        <div class="ph">
+          <div>
+            <h3>Shura Island Hotels</h3>
+            <div class="sub">HVAC MCC / EMCC · HC-02 and HC-03 · Saudi Arabia</div>
+            <p>Motor control centres and emergency MCCs for the HVAC plant of two resort hotels, alongside the MDBs, SMDBs, DBs, ATS and synchronizing panels on the same job. The schematics cover every starter type the plant needed, with BMS status and remote control on each feeder.</p>
+            <ul class="did">
+              <li>DOL, star-delta, VFD and dual-speed (low/high) motor starter circuits</li>
+              <li>Earth-leakage relays, overload and trip indication on each feeder</li>
+              <li>Manual/auto selection, with run, trip and selector status sent to the BMS</li>
+            </ul>
+          </div>
+          <dl class="specs">
+            <dt>Rating</dt><dd>400/230 V, 60 Hz, TN-S</dd>
+            <dt>Short circuit</dt><dd>35 kA</dd>
+            <dt>Form</dt><dd>Form 3B Type 2, IP54</dd>
+            <dt>Standards</dt><dd>IEC 60364, NEK 400</dd>
+          </dl>
+        </div>
+        <div class="gallery">
+          <figure><button data-src="img/shura-dual-speed-control.webp" data-title="Dual-speed feeder control" data-meta="Shura Island · EMCC-HVAC-10-B1-02"><img loading="lazy" src="img/shura-dual-speed-control-t.webp" alt="Control schematic with earth leakage relay, speed selection and BMS status"></button><figcaption><b>Dual-speed feeder control</b>Earth-leakage relay, BMS status, low/high trip</figcaption></figure>
+          <figure><button data-src="img/shura-dual-speed-power.webp" data-title="Dual-speed motor feeder" data-meta="Shura Island · EMCC-HVAC-10-B1-02"><img loading="lazy" src="img/shura-dual-speed-power-t.webp" alt="Power circuit of a two-speed motor with low and high speed contactors"></button><figcaption><b>Dual-speed motor feeder</b>Low and high speed contactors, overloads</figcaption></figure>
+          <figure><button data-src="img/shura-plant-data.webp" data-title="Plant characteristics" data-meta="Shura Island · EMCC-HVAC-10-B1-02"><img loading="lazy" src="img/shura-plant-data-t.webp" alt="Plant characteristics table for the MCC"></button><figcaption><b>Plant characteristics</b>Ratings, busbar, enclosure and cabling data</figcaption></figure>
+        </div>
+      </article>
+
+      <article class="project" id="ats">
+        <div class="ph">
+          <div>
+            <h3>ATS Panel 1000 A</h3>
+            <div class="sub">Automatic transfer switch · utility / generator</div>
+            <p>A mains-to-generator transfer panel for a 480 V system. I designed the power scheme, the transfer controller I/O and the breaker control, then generated the terminal and material lists from the schematic.</p>
+            <ul class="did">
+              <li>Two ABB XT7 1000 A MCCBs with Ekip Dip LS/I trip units, motor operators, shunt and closing coils</li>
+              <li>Lovato ATL601 transfer controller with voltage sensing on both sources and genset start signal</li>
+              <li>Mechanical interlock plus electrical interlocking through interface relays</li>
+            </ul>
+          </div>
+          <dl class="specs">
+            <dt>Rating</dt><dd>1000 A, 480/277 V, 60 Hz</dd>
+            <dt>Busbar</dt><dd>60 × 10 mm</dd>
+            <dt>Enclosure</dt><dd>Floor standing, IP65</dd>
+            <dt>Set</dt><dd>29 sheets</dd>
+          </dl>
+        </div>
+        <div class="gallery">
+          <figure><button data-src="img/ats-power-scheme.webp" data-title="Incoming / outgoing scheme" data-meta="ATS 1000 A"><img loading="lazy" src="img/ats-power-scheme-t.webp" alt="Power scheme with mains and generator MCCBs and mechanical interlock"></button><figcaption><b>Incoming / outgoing scheme</b>Mains and generator MCCBs, voltage sensing</figcaption></figure>
+          <figure><button data-src="img/ats-controller-io.webp" data-title="ATS controller I/O" data-meta="ATS 1000 A"><img loading="lazy" src="img/ats-controller-io-t.webp" alt="ATL601 controller outputs driving breaker and genset relays"></button><figcaption><b>ATS controller I/O</b>Breaker open/close and genset start relays</figcaption></figure>
+          <figure><button data-src="img/ats-terminals.webp" data-title="Terminal diagram" data-meta="ATS 1000 A"><img loading="lazy" src="img/ats-terminals-t.webp" alt="Terminal diagram for the ATS panel"></button><figcaption><b>Terminal diagram</b>Generated from the schematic</figcaption></figure>
+          <figure><button data-src="img/ats-bom.webp" data-title="Material list" data-meta="ATS 1000 A"><img loading="lazy" src="img/ats-bom-t.webp" alt="Material list with ABB and Lovato order codes"></button><figcaption><b>Material list</b>ABB, Lovato and ComAp order codes</figcaption></figure>
+        </div>
+      </article>
+    </section>
+
+    <section id="experience" aria-labelledby="exp-h">
+      <div class="sh">
+        <div><div class="ref">=PORTFOLIO +CV /4</div><h2 id="exp-h">Experience</h2></div>
+        <p>Four-plus years of electrical design, from LV switchgear packages for a panel builder to protection and control schematics for UK substations.</p>
+      </div>
+      <div class="exp">
+        <div class="job">
+          <div class="when">Sep 2024 – Present</div>
+          <div>
+            <h3>Electrical Design Engineer, Protection &amp; Control</h3>
+            <div class="org">UK-based engineering firm · Remote</div>
+            <ul>
+              <li>AC and DC secondary schematics for busbar, differential, restricted earth fault and distance protection panels</li>
+              <li>Trip, close and interlocking circuits and relay wiring for 33/11 kV and 400/33 kV substations</li>
+              <li>Relay configuration in Siemens DIGSI, Reydisp and ABB PCM600</li>
+            </ul>
+          </div>
+        </div>
+        <div class="job">
+          <div class="when">May 2022 – Sep 2024</div>
+          <div>
+            <h3>Electrical Design Engineer, LV Switchgear &amp; Control Panels</h3>
+            <div class="org">ACDC Electrical Services · Karachi</div>
+            <ul>
+              <li>Complete EPLAN Electric P8 packages for MDB, SMDB, DB, MCC/EMCC, ATS and LV synchronizing panels</li>
+              <li>Generator synchronizing and load-sharing schemes with DEIF controllers, PLCs, HMI and Modbus</li>
+              <li>GA and busbar layouts in EPLAN and AutoCAD, BOMs with order codes, revisions through to as-built</li>
+            </ul>
+          </div>
+        </div>
+        <div class="job">
+          <div class="when">2018 – 2022</div>
+          <div>
+            <h3>B.E. Electrical Engineering</h3>
+            <div class="org">NED University of Engineering &amp; Technology · Karachi</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tools" style="margin-top:36px">
+        <div><h3>Software</h3><div class="chips"><span class="hl">EPLAN Electric P8</span><span>AutoCAD</span><span>Siemens DIGSI</span><span>Reydisp</span><span>ABB PCM600</span><span>MS Office</span></div></div>
+        <div><h3>Brands I've worked with</h3><div class="chips"><span>DEIF</span><span>ABB</span><span>Eaton</span><span>Siemens</span><span>Phoenix Contact</span><span>Lovato</span><span>ComAp</span></div></div>
+        <div><h3>Standards</h3><div class="chips"><span>IEC 61439</span><span>IEC 60364</span><span>NEK 400</span></div></div>
+      </div>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-h">
+      <div class="contact">
+        <div>
+          <div class="ref">=PORTFOLIO +CONTACT /5</div>
+          <h2 id="contact-h" style="margin-top:10px">Need a panel package drawn?</h2>
+          <p style="margin-top:16px">Send me your specification, single-line diagram or marked-up drawings along with your EPLAN project standards and title block. I'll reply with a scope, sheet count and timeline.</p>
+        </div>
+        <div class="lines">
+          <div class="line"><span class="k">Email</span><span class="v" id="email">umair.haroon.nedian@gmail.com</span><button class="copy" type="button" data-copy="umair.haroon.nedian@gmail.com">Copy</button></div>
+          <div class="line"><span class="k">Phone</span><span class="v">+92 315 2295539</span><button class="copy" type="button" data-copy="+923152295539">Copy</button></div>
+          <div class="line"><span class="k">LinkedIn</span><a class="v" href="https://www.linkedin.com/in/MUmairHaroon" target="_blank" rel="noopener">in/MUmairHaroon</a><span></span></div>
+          <div class="line"><span class="k">CV</span><a class="v" href="cv.pdf" target="_blank" rel="noopener">Muhammad Umair Haroon CV (PDF)</a><span></span></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="tb" role="contentinfo">
+      <div><small>Rev.</small><span>01</span></div>
+      <div><small>Description</small><span>Portfolio issue</span></div>
+      <div><small>Issue date</small><span>Oct 2026</span></div>
+      <div><small>Design by</small><span>M. Umair Haroon</span></div>
+      <div><small>Software</small><span>EPLAN Electric P8</span></div>
+      <div><small>Page</small><span>1 of 1</span></div>
+    </div>
+  </div>
+</div>
+
+<dialog id="lb" aria-label="Drawing viewer">
+  <div class="lb">
+    <div class="lb-bar">
+      <div class="lb-cap"><b id="lb-title"></b><span id="lb-meta"></span></div>
+      <div class="lb-btns">
+        <button type="button" id="lb-prev" aria-label="Previous sheet">← Prev</button>
+        <button type="button" id="lb-next" aria-label="Next sheet">Next →</button>
+        <button type="button" id="lb-zoom">Zoom 100%</button>
+        <button type="button" id="lb-close">Close ✕</button>
+      </div>
+    </div>
+    <div class="lb-view" id="lb-view"><img id="lb-img" alt=""></div>
+  </div>
+</dialog>
+
+<script>
+(function(){
+  const items=[...document.querySelectorAll('button[data-src]')];
+  const dlg=document.getElementById('lb'), img=document.getElementById('lb-img'), view=document.getElementById('lb-view');
+  const t=document.getElementById('lb-title'), m=document.getElementById('lb-meta'), zb=document.getElementById('lb-zoom');
+  let i=0;
+  function setZoom(on){view.classList.toggle('zoom',on);zb.textContent=on?'Fit to screen':'Zoom 100%';}
+  function show(n){
+    i=(n+items.length)%items.length; const b=items[i];
+    img.src=b.dataset.src; img.alt=b.querySelector('img')?.alt||b.dataset.title;
+    t.textContent=b.dataset.title; m.textContent=b.dataset.meta; setZoom(false); view.scrollTo(0,0);
+  }
+  items.forEach((b,n)=>b.addEventListener('click',()=>{show(n); if(dlg.showModal) dlg.showModal(); else dlg.setAttribute('open','');}));
+  document.getElementById('lb-close').onclick=()=>dlg.close();
+  document.getElementById('lb-prev').onclick=()=>show(i-1);
+  document.getElementById('lb-next').onclick=()=>show(i+1);
+  zb.onclick=()=>setZoom(!view.classList.contains('zoom'));
+  img.addEventListener('click',e=>{
+    const on=!view.classList.contains('zoom');
+    const r=img.getBoundingClientRect(); const fx=(e.clientX-r.left)/r.width, fy=(e.clientY-r.top)/r.height;
+    setZoom(on);
+    if(on) requestAnimationFrame(()=>{view.scrollLeft=fx*img.offsetWidth-view.clientWidth/2; view.scrollTop=fy*img.offsetHeight-view.clientHeight/2;});
+  });
+  dlg.addEventListener('keydown',e=>{if(e.key==='ArrowRight')show(i+1); if(e.key==='ArrowLeft')show(i-1);});
+  document.querySelectorAll('.copy').forEach(btn=>btn.addEventListener('click',()=>{
+    const v=btn.dataset.copy;
+    const done=()=>{btn.textContent='Copied';setTimeout(()=>btn.textContent='Copy',1600);};
+    const fallback=()=>{const el=btn.previousElementSibling; const r=document.createRange(); r.selectNodeContents(el); const s=getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent='Selected';setTimeout(()=>btn.textContent='Copy',1600);};
+    try{navigator.clipboard.writeText(v).then(done,fallback);}catch(e){fallback();}
+  }));
+})();
+</script>
+
+</body>
+</html>
